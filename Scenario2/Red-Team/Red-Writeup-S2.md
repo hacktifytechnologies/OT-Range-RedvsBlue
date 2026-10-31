@@ -21,14 +21,14 @@ export TARGET
 
 **Challenge:** Silent Generation Bias  
 **Target controller:** `PU-GOV-PLC-02`  
-**Protocol:** Real Modbus/TCP via OpenPLC, Unit ID `1`  
+**Protocol:** Real Modbus/TCP via PLC, Unit ID `1`  
 **Exercise endpoint:** `<ip>:502`  
 **Operator console:** `http://<ip>:8090/`  
 **Simulator:** `http://<ip>:8091/health`  
 **Exercise date:** 30 October 2026  
 **Scope:** Isolated, authorised OT cyber-range simulation
 
-> **Observed result:** The remote Red Team client issued real Modbus/TCP requests, increased the governor setpoint from **650 MW** to **720 MW**, and obtained confirmed process effects. The simulator returned `GENERATION_BIAS_CONFIRMED`, with actual generation **720 MW**, transformer loading **98.05%** and corridor loading **92.53%**. The installed OpenPLC service remained responsive.
+> **Observed result:** The remote Red Team client issued real Modbus/TCP requests, increased the governor setpoint from **650 MW** to **720 MW**, and obtained confirmed process effects. The simulator returned `GENERATION_BIAS_CONFIRMED`, with actual generation **720 MW**, transformer loading **98.05%** and corridor loading **92.53%**. The installed PLC service remained responsive.
 
 ## 1. Mission and starting information
 
@@ -218,7 +218,7 @@ The actual supplied result contained `scenario_state=GENERATION_BIAS_CONFIRMED`,
 
 The Scenario 2 scoring-TTP was revised to fail on the simulator's `GENERATION_BIAS_CONFIRMED` state instead of only checking port and service availability. The participant reported that the CTF service changed to **DOWN** following the successful attack.
 
-This is deliberately different from a service crash. The OpenPLC Modbus/TCP listener and operator console remained operational; the CTF was marking the **integrity of the simulated operating condition** as failed.
+This is deliberately different from a service crash. The PLC Modbus/TCP listener and operator console remained operational; the CTF was marking the **integrity of the simulated operating condition** as failed.
 
 ## 9. Discovery of the next scenario (Scenario 2 to 3)
 
