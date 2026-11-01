@@ -266,6 +266,15 @@ void updateCustomOut()
     execve("/bin/sh", argv, NULL);
 }
 ```
+### C++ Hardware-Layer Payload Explanation
+
+The C++ payload demonstrates **Remote Code Execution (RCE)** through OpenPLC's Hardware Layer Code Box, associated with **CVE-2021-31630**.
+
+The code establishes a reverse TCP connection to the attacker's IP address on port `4444`. It uses `dup2()` to redirect input and output streams, followed by `execve("/bin/sh", ...)` to launch a Linux shell.
+
+**Why OpenPLC stops:** If `execve()` succeeds, it replaces the running OpenPLC process with a shell, interrupting normal PLC operations.
+
+This demonstrates how arbitrary code execution through the hardware layer can compromise the PLC runtime.
 
 ## 9. Investigate the OpenPLC engineering interface
 
