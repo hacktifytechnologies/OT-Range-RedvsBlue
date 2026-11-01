@@ -60,6 +60,9 @@ nmap -Pn -sV -p 4840,8088 "${TARGET}"
 - TCP **4840** is the OPC UA endpoint.
 - TCP **8088** hosts the read-only Unit-2 operator HMI.
 
+<img width="1243" height="480" alt="Screenshot 2026-11-01 at 7 11 45 PM" src="https://github.com/user-attachments/assets/4c8032f2-9cce-4e67-b69f-da9c6e42d5ca" />
+
+
 **Why:** distinguish the industrial protocol endpoint from the operator website. The HMI is an observer; the write-capable interface in this challenge is OPC UA.
 
 Open `http://<ip>:8088/` and capture the state **before** any writes. The observed baseline was `NORMAL_OPERATION`, maintenance `INACTIVE`, channel `ONLINE`, override `NOT ACCEPTED`, and data quality `GOOD`.
