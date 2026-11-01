@@ -214,13 +214,7 @@ The actual supplied result contained `scenario_state=GENERATION_BIAS_CONFIRMED`,
 
 **Success condition implemented in the simulator:** the setpoint is at least 720 MW, actual generation at least 710 MW, and transformer or corridor loading at least 88%, held for the configured confirmation period (20 seconds in the standard configuration). The observed `GENERATION_BIAS_CONFIRMED` state is the evidence that the running simulator accepted the completed objective.
 
-## 8. CTF scoring and what DOWN means
-
-The Scenario 2 scoring-TTP was revised to fail on the simulator's `GENERATION_BIAS_CONFIRMED` state instead of only checking port and service availability. The participant reported that the CTF service changed to **DOWN** following the successful attack.
-
-This is deliberately different from a service crash. The PLC Modbus/TCP listener and operator console remained operational; the CTF was marking the **integrity of the simulated operating condition** as failed.
-
-## 9. Discovery of the next scenario (Scenario 2 to 3)
+## 8. Discovery of the next scenario (Scenario 2 to 3)
 
 During the exercise, the operator console's **Intertie Coordination** panel identified:
 
@@ -237,3 +231,30 @@ The source also defines a read-only endpoint:
 curl -sS http://${TARGET}:8090/api/intertie
 ```
 
+## 9. Investigate the OpenPLC engineering interface
+
+After examining how Modbus writes changed the governor setpoint, the investigation moved to the controller's engineering functions. The next objective was to inspect the hardware-layer editor and examine how a custom hardware configuration affected the native PLC runtime.
+
+### 9.1 Access the engineering interface
+
+With the governor's Modbus control path already examined, the investigation continued to the OpenPLC engineering interface. The engineering webserver on port 8080 was accessed from a position where it was reachable, and the default OpenPLC credentials were used to sign in. The Hardware page then provided access to the controller's hardware-layer configuration.
+
+The operator opened the engineering interface at `http://<ip>:8080/` and signed in.
+
+![Figure 13. OpenPLC engineering-interface login](images/13-legacy-openplc-login.png)
+
+The dashboard showed the existing governor-control program running before the hardware change.
+
+![Figure 14. Original governor-control program running before the hardware-layer test](images/14-legacy-openplc-dashboard.png)
+
+### 9.2 Inspect and modify the hardware layer
+
+From the engineering dashboard, the operator navigated to **Hardware** and selected **Blank Linux**. The page exposed a **Hardware Layer Code Box** for custom C/C++ hardware-layer code.
+
+![Figure 15. Hardware page showing the Hardware Layer Code Box](images/15-legacy-hardware-code-box.png)
+
+The submitted code defined the `initCustomLayer`, `updateCustomIn`, and `updateCustomOut` callbacks. These provide initialization, input-update and output-update hooks for the custom hardware layer. The tested output callback included network and standard-stream handling followed by a call to `execve()`.
+
+**Why this matters:** the hardware-layer code runs inside the native PLC runtime. An authenticated user able to submit such code can introduce behavior beyond ordinary governor-register changes. The default credentials provide access to the engineering interface; the ability to compile and execute the submitted code is a separate application capability being examined.
+
+Saving the hardware configuration initiated OpenPLC's stop, recompile and restart workflow for the existing `prabal_unit2.st` program. The supplied logs show a hardware POST, activation of the Blank driver, a runtime shutdown, and compilation and start requests for that program.
