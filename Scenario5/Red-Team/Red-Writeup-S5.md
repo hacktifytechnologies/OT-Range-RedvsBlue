@@ -6,8 +6,6 @@
 
 The dispatch engineering file identifies protection IED PU-DSS-IED-01 and its IEC 61850 model. The investigation moves to its MMS engineering interface to examine whether changing the active setting group weakens protection.
 
-Use the address assigned to this scenario by the exercise platform or instructor. Each stage has its own assigned deployment. Follow the engineering clue to identify the next asset, then open that stage using its assigned address.
-
 **Terminal setup:** In Bash or Zsh, enter the assigned address when prompted. Commands below use `TARGET`; replace `<ip>` with the same address in browser URLs and graphical clients.
 
 ```bash
