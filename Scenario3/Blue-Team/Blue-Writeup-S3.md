@@ -6,8 +6,6 @@
 
 River Bend reports an unexpected breaker arrangement and excessive load on Feeder B. The investigation starts with the switching state, then traces the applied DNP3 controls while checking the legitimate master connection.
 
-Use the address assigned to this scenario by the exercise platform or instructor. Each stage has its own assigned deployment. Follow the engineering clue to identify the next asset, then open that stage using its assigned address.
-
 Run host commands on the assigned defender VM. Replace `<ip>` in each command with the address for the named role: local service, legitimate master, outstation, or participant. Packet filters comparing two endpoints require their respective addresses.
 
 ## Blue Team Investigation and Recovery Runbook
