@@ -6,8 +6,6 @@
 
 The protection IED did not trip during a simulated overcurrent test. The investigation follows the active setting group, native relay events and engineering baseline before restoring the approved protection configuration.
 
-Use the address assigned to this scenario by the exercise platform or instructor. Each stage has its own assigned deployment. Follow the engineering clue to identify the next asset, then open that stage using its assigned address.
-
 Run host commands on the assigned defender VM. Replace `<ip>` in each command with the address for the named role: local service, legitimate master, outstation, or participant. Packet filters comparing two endpoints require their respective addresses.
 
 **Case type:** Suspected unauthorised protection-setting modification  
