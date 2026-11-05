@@ -6,7 +6,6 @@
 
 The gateway metadata identifies PU-GOV-PLC-02 as the downstream governor controller and Modbus/TCP as its control protocol. The investigation follows that asset to examine how its generation setpoint affects Unit-2 loading.
 
-Use the address assigned to this scenario by the exercise platform or instructor. Each stage has its own assigned deployment. Follow the engineering clue to identify the next asset, then open that stage using its assigned address.
 
 **Terminal setup:** In Bash or Zsh, enter the assigned address when prompted. Commands below use `TARGET`; replace `<ip>` with the same address in browser URLs and graphical clients.
 
