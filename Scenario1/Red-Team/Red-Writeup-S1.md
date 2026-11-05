@@ -6,8 +6,6 @@
 
 The investigation begins at the Unit-2 telemetry gateway, where maintenance controls govern the readings and alarms presented to the operator. The first task is to understand the normal display and examine the OPC UA maintenance pathway.
 
-Use the address assigned to this scenario by the exercise platform or instructor. Each stage has its own assigned deployment. Follow the engineering clue to identify the next asset, then open that stage using its assigned address.
-
 **Terminal setup:** In Bash or Zsh, enter the assigned address when prompted. Commands below use `TARGET`; replace `<ip>` with the same address in browser URLs and graphical clients.
 
 ```bash
