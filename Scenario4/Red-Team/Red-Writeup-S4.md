@@ -6,8 +6,6 @@
 
 River Bend's Control Authority register identifies the Northern Load Dispatch Centre and its IEC-104 telecontrol relationship. The investigation follows the dispatch link to examine how disrupted communication affects fresh operator telemetry.
 
-Use the address assigned to this scenario by the exercise platform or instructor. Each stage has its own assigned deployment. Follow the engineering clue to identify the next asset, then open that stage using its assigned address.
-
 **Exercise method:** The supplied participant gateway starts a fixed 95-second APCI sequence-modification experiment within the existing master/outstation path. The Red Team requests the experiment and observes its effect.
 
 **Terminal setup:** In Bash or Zsh, enter the assigned address when prompted. Commands below use `TARGET`; replace `<ip>` with the same address in browser URLs and graphical clients.
