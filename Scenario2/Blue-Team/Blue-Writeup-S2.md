@@ -6,8 +6,6 @@
 
 Unit-2 generation has risen above its approved operating point. The investigation follows the governor registers, process events and loading history to reconstruct the changes and restore the normal dispatch setting.
 
-Use the address assigned to this scenario by the exercise platform or instructor. Each stage has its own assigned deployment. Follow the engineering clue to identify the next asset, then open that stage using its assigned address.
-
 Run host commands on the assigned defender VM. Replace `<ip>` in each command with the address for the named role: local service, legitimate master, outstation, or participant. Packet filters comparing two endpoints require their respective addresses.
 
 **Scenario:** Silent Generation Bias  
