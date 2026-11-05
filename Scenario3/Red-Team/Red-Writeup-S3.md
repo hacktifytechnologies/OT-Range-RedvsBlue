@@ -6,8 +6,6 @@
 
 The intertie information points to River Bend RTU PU-RB-RTU-07, whose feeder and bus-tie switching affects the stressed corridor. The investigation continues through its operator view and DNP3 maintenance interface.
 
-Use the address assigned to this scenario by the exercise platform or instructor. Each stage has its own assigned deployment. Follow the engineering clue to identify the next asset, then open that stage using its assigned address.
-
 **Terminal setup:** In Bash or Zsh, enter the assigned address when prompted. Commands below use `TARGET`; replace `<ip>` with the same address in browser URLs and graphical clients.
 
 ```bash
