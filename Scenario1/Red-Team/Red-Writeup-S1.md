@@ -263,16 +263,6 @@ Invoke-RestMethod -Uri "http://<ip>:8088/api/state" | Select-Object connected, c
 
 ### 5.2 Compare actual process and displayed telemetry
 
-The server source includes an independent simulated-process logger. To establish manipulation-of-view beyond the accepted override state, compare the process log and repeated displayed values while the hold is active:
-
-On Ubuntu:
-
-```bash
-sudo grep -E 'NODE_WRITE_DETECTED|OVERRIDE_ACTIVE' /var/log/prabal-urja/opcua-audit.log | tail -n 20
-sudo tail -n 8 /var/log/prabal-urja/process-actual.log
-sleep 12
-sudo tail -n 8 /var/log/prabal-urja/process-actual.log
-```
 
 From a Bash-compatible terminal with `curl` and `jq` installed:
 
@@ -283,7 +273,6 @@ for i in 1 2 3; do
 done
 ```
 
-**Pass criterion:** during `override=true`, `actual_power_mw` changes in `/var/log/prabal-urja/process-actual.log` while `displayed_power_mw` and the HMI's active-power reading remain constant.
 
 ## 6. Scenario 1 to Scenario 2 discovery
 
