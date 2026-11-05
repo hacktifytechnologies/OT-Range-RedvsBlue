@@ -253,17 +253,3 @@ CASE="$(cat /root/s04-soc-case-path.txt)"
 
 ![B21 - Expanded SOC gateway-to-disconnection timeline](images/B21-Full-Gateway-Trigger-Timeline.png)
 
-### 9. Apply lab-specific containment
-
-**Command (authorised defender action):**
-
-```bash
-systemctl stop prabal-s04-participant-gateway.service
-systemctl is-active prabal-s04-participant-gateway.service
-```
-
-**Why:** The observed gateway is a training control plane allowing another bounded experiment to be requested. Stopping it prevents **new** requests via that gateway while it remains stopped. It is not a general industrial IEC-104 countermeasure and does not necessarily terminate a currently running packet modifier.
-
-**Observed:** `inactive`.
-
-![B13 - Participant gateway stopped](images/B13-SOC-Containment.png)
