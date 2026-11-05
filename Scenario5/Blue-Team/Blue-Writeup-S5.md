@@ -148,5 +148,4 @@ Immediate escalation: OT operations / protection engineering / incident commande
 
 **SOC containment instructions:** Consult the OT control-room lead; assess whether any critical operational process relies on the simulated IED; determine the current legitimate engineering users; isolate an independently verified rogue engineering workstation *at the network or account boundary* where approved. Do not indiscriminately stop the relay, block all TCP/102, or restart the server as the first response.
 
-The lab implementation has no client-identity binding on the setting-group callback, so restoration alone leaves the vulnerability available. Follow-up hardening requires controlled engineering access, explicit approval enforcement in the callback or gateway, trustworthy event fields (source, actor, before/after), and ideally rolling protocol capture.
 
