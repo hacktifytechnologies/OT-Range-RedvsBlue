@@ -150,32 +150,3 @@ Immediate escalation: OT operations / protection engineering / incident commande
 
 The lab implementation has no client-identity binding on the setting-group callback, so restoration alone leaves the vulnerability available. Follow-up hardening requires controlled engineering access, explicit approval enforcement in the callback or gateway, trustworthy event fields (source, actor, before/after), and ideally rolling protocol capture.
 
-## 8. Recovery handoff to authorised OT engineering
-
-After incident commander approval, the OT engineer on the Ubuntu scenario host can reset the model with the packaged recovery script:
-
-```bash
-sudo /opt/prabal-urja/scenario5/tools/blue_restore.sh
-```
-
-**What the script actually does:** sets the instructor test-current file back to `0`, restarts `prabal-s05-mms.service`, waits for the service to return and performs a native MMS read. The restart resets the in-memory active group to 1 and clears the simulator's trip state, but it **briefly interrupts MMS availability**. It does not fix the engineering-authorisation weakness.
-
-**Check the restored state:**
-
-```bash
-sudo jq '{active_setting_group,threshold_amps,protection_trip,breaker_closed}' /var/lib/prabal-urja/scenario5/relay-state.json
-```
-
-Expected after the reset: group `1`, threshold `800`, protection trip `false`, breaker closed `true`.
-
-## 9. Independently verify recovered protection
-
-**Instructor / authorised OT engineer only:**
-
-```bash
-sudo /opt/prabal-urja/scenario5/tools/instructor_fault_test.sh 1300
-```
-
-At group 1's 800 A pickup, the 1300 A simulated fault should cause `last_test_trip: true`, `protection_trip: true` and `breaker_closed: false`. This tripped state is the **correct protective response**, even though normal operations would later require a controlled reset.
-
-After the protection test, the authorised operator can use the approved reset procedure to return the simulator to its normal operating state.
