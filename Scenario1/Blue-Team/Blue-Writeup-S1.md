@@ -135,7 +135,6 @@ Use the variable's **Write Value** operation to restore the following values in 
 
 The server's application code evaluates the override condition continuously. Clearing an individual required Boolean deactivates it; clearing the remaining variables and ticket returns the lab to an ordinary baseline.
 
-Do not restart the host or use the exercise reset script merely to clear the incident. Both would interfere with the investigation record or exercise state.
 
 ## 8. Confirm that live telemetry resumes
 
