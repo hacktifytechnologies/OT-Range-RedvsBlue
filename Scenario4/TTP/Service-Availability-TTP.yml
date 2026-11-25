@@ -9,6 +9,6 @@ tag: service-availability
 executors:
 - name: sh
   platform: linux
-  command: python3 -c 'import json,urllib.request,sys;u=lambda x:json.load(urllib.request.urlopen("http://127.0.0.1:8095"+x,timeout=4));a=u("/api/state");b=u("/api/incident");d=(a.get("telecontrol_online") is not True or a.get("scenario_state")!="DISPATCH_TELECONTROL_HEALTHY" or (b.get("status")=="RECORDED" and b.get("record_type")=="observed_live_telemetry_loss"));print("SERVICE_STATUS:"+("DOWN" if d else "UP"));sys.exit(int(d))'
+  command: down(){ echo "SERVICE_STATUS:DOWN | REASON:$1"; exit 1; }; A=$(curl -fsS --connect-timeout 4 --max-time 4 'http://127.0.0.1:8095/api/state') || down STATE_API_UNAVAILABLE; printf '%s\n' "$A" | jq -e '.status == "up"' >/dev/null 2>&1 || down STATE_NOT_UP; echo 'SERVICE_STATUS:UP'; exit 0
   payloads: []
   parsers: []
